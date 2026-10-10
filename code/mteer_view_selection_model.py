@@ -5,7 +5,7 @@ import pandas as pd
 from scipy.stats import qmc, rankdata, pearsonr
 from scipy.optimize import brentq
 
-OUT=Path('/mnt/data/echo360_mteer_information_guided_package')
+OUT = Path(__file__).resolve().parents[1]
 OUT.mkdir(exist_ok=True); (OUT/'figures').mkdir(exist_ok=True)
 SEED=20260903
 rng=np.random.default_rng(SEED)
