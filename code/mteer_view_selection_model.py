@@ -6,7 +6,10 @@ from scipy.stats import qmc, rankdata, pearsonr
 from scipy.optimize import brentq
 
 OUT = Path(__file__).resolve().parents[1]
-OUT.mkdir(exist_ok=True); (OUT/'figures').mkdir(exist_ok=True)
+DATA = OUT / 'data'
+OUT.mkdir(exist_ok=True)
+DATA.mkdir(exist_ok=True)
+(OUT/'figures').mkdir(exist_ok=True)
 SEED=20260903
 rng=np.random.default_rng(SEED)
 
@@ -149,14 +152,14 @@ def run_sequence(true_state=None,policy='full',rng=None,cost_weight=COST_WEIGHT,
 
 # Reference sequence
 ref_df,ref_mu,ref_P=run_sequence(MU0,policy='full',rng=np.random.default_rng(SEED))
-ref_df.to_csv(OUT/'Reference_Sequence.csv',index=False)
+ref_df.to_csv(DATA/'Reference_Sequence.csv',index=False)
 
 # View utility matrix at initial covariance by phase
 u=[]
 for pi,pn in enumerate(PHASES):
     for v in VIEW_NAMES:
         u.append(dict(phase=pn,view=v,utility=action_utility(P0,v,pi),information_gain=information_gain(predict_cov(P0),VIEWS[v]['H'],VIEWS[v]['R'])))
-pd.DataFrame(u).to_csv(OUT/'View_Utility_by_Phase.csv',index=False)
+pd.DataFrame(u).to_csv(DATA/'View_Utility_by_Phase.csv',index=False)
 
 # Synthetic population-like scenarios strictly for stress testing, not patients
 N=600
@@ -175,10 +178,10 @@ for pol in policies:
                         abs_gap_error=err[0],abs_coaptation_error=err[1],abs_vca_error=err[2],abs_gradient_error=err[3],
                         completed=stop_condition(P,max(3,len(df)))))
 policy_results=pd.DataFrame(res)
-policy_results.to_csv(OUT/'Policy_Stress_Test.csv',index=False)
+policy_results.to_csv(DATA/'Policy_Stress_Test.csv',index=False)
 policy_summary=policy_results.groupby('policy').agg(n=('scenario','size'),median_views=('n_views','median'),mean_views=('n_views','mean'),terminal_entropy=('terminal_entropy','mean'),weighted_uncertainty=('weighted_uncertainty','mean'),
     gap_MAE=('abs_gap_error','mean'),coaptation_MAE=('abs_coaptation_error','mean'),VCA_MAE=('abs_vca_error','mean'),gradient_MAE=('abs_gradient_error','mean'),completion_rate=('completed','mean')).reset_index()
-policy_summary.to_csv(OUT/'Policy_Summary.csv',index=False)
+policy_summary.to_csv(DATA/'Policy_Summary.csv',index=False)
 
 # Internal model recovery via stochastic softmax action labels on synthetic decision states.
 # Models differ in utility representation; log-likelihood is evaluated against model-generated actions.
@@ -213,7 +216,7 @@ for var in variants:
         s=variant_scores(P,phase,var); temp=0.18; pr=np.exp((s-s.max())/temp); pr/=pr.sum(); ll+=np.log(max(pr[a],1e-15)); correct+=int(np.argmax(pr)==a)
     mc.append(dict(model=var,k=k,log_likelihood=ll,AIC=2*k-2*ll,BIC=k*np.log(M)-2*ll,internal_action_accuracy=correct/M))
 mc=pd.DataFrame(mc).sort_values('AIC')
-mc.to_csv(OUT/'Synthetic_Model_Comparison_AIC.csv',index=False)
+mc.to_csv(DATA/'Synthetic_Model_Comparison_AIC.csv',index=False)
 
 # Uncertainty equilibrium / stability of repeated covariance maps with process noise.
 def cov_map(P,view,q_scale=1.0):
@@ -236,8 +239,8 @@ for v in VIEW_NAMES:
     for j in range(10):
         vv=base.copy(); vv[j]+=eps; Pj=mat_sym(vv); out=vec_sym(cov_map(Pj,v)); J[:,j]=(out-vec_sym(cov_map(P,v)))/eps
     ev=np.linalg.eigvals(J); eigrows.append(dict(view=v,spectral_radius=max(abs(ev)),max_real_eigenvalue=max(ev.real)))
-pd.DataFrame(eq).to_csv(OUT/'Covariance_Equilibria.csv',index=False)
-pd.DataFrame(eigrows).to_csv(OUT/'Covariance_Map_Stability.csv',index=False)
+pd.DataFrame(eq).to_csv(DATA/'Covariance_Equilibria.csv',index=False)
+pd.DataFrame(eigrows).to_csv(DATA/'Covariance_Map_Stability.csv',index=False)
 
 # LHS global sensitivity: structural settings -> reference policy outputs
 param_names=['cost_weight','q_scale','w_gap','w_coaptation','w_vca','w_gradient','target_gap','target_coaptation','target_vca','target_gradient']
@@ -257,7 +260,7 @@ for i,row in enumerate(vals):
         v=choose_view(P,ph,'full',cw,w,qs); vp=VIEWS[v]; Pp=predict_cov(P,qs); y=vp['H']@MU0+rr.multivariate_normal(np.zeros(vp['R'].shape[0]),vp['R'])
         h0=entropy_gaussian(Pp); mu,P=kalman_update(mu,Pp,vp['H'],vp['R'],y); totig+=h0-entropy_gaussian(P); n+=1
     lhs.append(dict(sample=i,**{k:row[j] for j,k in enumerate(param_names)},n_views=n,terminal_entropy=entropy_gaussian(P),weighted_uncertainty=float(np.dot(w,np.sqrt(np.diag(P))/SD0)),total_information_gain=totig))
-lhs=pd.DataFrame(lhs); lhs.to_csv(OUT/'LHS_Parameter_Samples.csv',index=False)
+lhs=pd.DataFrame(lhs); lhs.to_csv(DATA/'LHS_Parameter_Samples.csv',index=False)
 
 # PRCC via residualization of ranks
 def prcc(df,xcols,ycol):
@@ -269,7 +272,7 @@ def prcc(df,xcols,ycol):
 pr=[]
 for y in ['n_views','terminal_entropy','weighted_uncertainty','total_information_gain']:
     pr.extend(prcc(lhs,param_names,y))
-pd.DataFrame(pr).to_csv(OUT/'Global_Sensitivity_PRCC.csv',index=False)
+pd.DataFrame(pr).to_csv(DATA/'Global_Sensitivity_PRCC.csv',index=False)
 
 # Local elasticity around reference settings; use deterministic truth and same RNG seed.
 base_metrics=dict(n_views=len(ref_df),terminal_entropy=entropy_gaussian(ref_P),weighted_uncertainty=weighted_uncertainty(ref_P))
@@ -282,7 +285,7 @@ for pname in ['cost_weight','q_scale']:
         for y,val in metrics.items():
             elasticity=((val-base_metrics[y])/base_metrics[y])/(factor-1) if base_metrics[y]!=0 else np.nan
             loc.append(dict(parameter=pname,perturbation=sign,output=y,value=val,elasticity=elasticity))
-pd.DataFrame(loc).to_csv(OUT/'Local_Elasticity.csv',index=False)
+pd.DataFrame(loc).to_csv(DATA/'Local_Elasticity.csv',index=False)
 
 # Scenario stress tests
 scenarios=[
@@ -295,7 +298,7 @@ for name,qs,cw,w in scenarios:
     # q_scale here acts as latent process volatility, while image-noise labels are broad stress labels; preserve explicit caveat
     df,mu,P=run_sequence(MU0,'full',np.random.default_rng(SEED),cw,w/w.sum(),qs)
     sc.append(dict(scenario=name,n_views=len(df),terminal_entropy=entropy_gaussian(P),weighted_uncertainty=float(np.dot(w/w.sum(),np.sqrt(np.diag(P))/SD0)),last_view=df.view.iloc[-1] if len(df) else 'None',last_phase=df.phase.iloc[-1] if len(df) else 'None'))
-pd.DataFrame(sc).to_csv(OUT/'Scenario_Results.csv',index=False)
+pd.DataFrame(sc).to_csv(DATA/'Scenario_Results.csv',index=False)
 
 # Policy surface: initial coaptation-gap SD vs residual-VCA SD and selected first view
 surf=[]
@@ -304,7 +307,7 @@ for sg in np.linspace(0.5,4.0,36):
         P=P0.copy(); P[0,0]=sg**2; P[2,2]=sv**2; ph=0
         scores={v:action_utility(P,v,ph) for v in VIEW_NAMES}; vv=max(scores,key=scores.get)
         surf.append(dict(sd_gap=sg,sd_vca=sv,selected_view=vv,max_utility=scores[vv],entropy=entropy_gaussian(P)))
-pd.DataFrame(surf).to_csv(OUT/'Sensitivity_Surface.csv',index=False)
+pd.DataFrame(surf).to_csv(DATA/'Sensitivity_Surface.csv',index=False)
 
 # Literature source ledger (18 sources)
 sources=[
@@ -327,7 +330,7 @@ sources=[
 ('MiCLASP 1-Year Outcomes. JACC Cardiovasc Interv. 2024.','544-patient post-market cohort; sustained MR reduction and clinical outcomes context.','https://pubmed.ncbi.nlm.nih.gov/38599692/'),
 ('Goldberger MI et al. Comparison of 2D and 3D Echocardiographic Mitral Leaflet Length Measurements. J Cardiothorac Vasc Anesth. 2026.','Supports importance of millimeter-scale leaflet measurement and 3D-MPR for quantitative anatomy.','https://pubmed.ncbi.nlm.nih.gov/42476856/'),
 ]
-pd.DataFrame(sources,columns=['reference','modeling_role','url']).to_csv(OUT/'Literature_Parameter_Sources.csv',index=False)
+pd.DataFrame(sources,columns=['reference','modeling_role','url']).to_csv(DATA/'Literature_Parameter_Sources.csv',index=False)
 
 # Model parameters provenance
 params=[]
@@ -336,7 +339,7 @@ for i,n in enumerate(STATE_NAMES): params.append(dict(name='Prior mean '+n,value
 for i,n in enumerate(STATE_NAMES): params.append(dict(name='Prior SD '+n,value=SD0[i],unit=UNITS[i],status='provisional structural assumption',role='Initial epistemic uncertainty scale',source='Not estimated from patients',url=''))
 for i,n in enumerate(STATE_NAMES): params.append(dict(name='Stopping SD '+n,value=SD_TARGET[i],unit=UNITS[i],status='provisional decision guardrail',role='Proof-of-concept uncertainty tolerance',source='Not a clinical cutoff',url=''))
 params.append(dict(name='Acquisition cost weight',value=COST_WEIGHT,unit='dimensionless',status='provisional structural assumption',role='Information-versus-acquisition penalty',source='Financial-engineering-inspired utility term',url=''))
-pd.DataFrame(params).to_csv(OUT/'Model_Parameters.csv',index=False)
+pd.DataFrame(params).to_csv(DATA/'Model_Parameters.csv',index=False)
 
 summary={
  'seed':SEED,
@@ -345,7 +348,7 @@ summary={
  'policy_summary':policy_summary.to_dict(orient='records'),
  'model_comparison':mc.to_dict(orient='records'),
  'top_prcc_terminal_entropy':pd.DataFrame(pr).query("output=='terminal_entropy'").assign(absPRCC=lambda d:d.PRCC.abs()).sort_values('absPRCC',ascending=False).head(6).drop(columns='absPRCC').to_dict(orient='records'),
- 'covariance_stability':pd.read_csv(OUT/'Covariance_Map_Stability.csv').to_dict(orient='records')
+ 'covariance_stability':pd.read_csv(DATA/'Covariance_Map_Stability.csv').to_dict(orient='records')
 }
 json.dump(summary,open(OUT/'Analysis_Summary.json','w'),indent=2)
 
