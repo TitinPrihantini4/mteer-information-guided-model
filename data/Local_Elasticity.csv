@@ -1,0 +1,13 @@
+parameter,perturbation,output,value,elasticity
+cost_weight,-1,n_views,3.0,-0.0
+cost_weight,-1,terminal_entropy,0.15592672757335801,-0.0
+cost_weight,-1,weighted_uncertainty,0.29151939151005507,-0.0
+cost_weight,1,n_views,3.0,0.0
+cost_weight,1,terminal_entropy,0.15592672757335801,0.0
+cost_weight,1,weighted_uncertainty,0.29151939151005507,0.0
+q_scale,-1,n_views,3.0,-0.0
+q_scale,-1,terminal_entropy,0.15440625700034527,0.9751186321135453
+q_scale,-1,weighted_uncertainty,0.29141122440614414,0.03710459992065288
+q_scale,1,n_views,3.0,0.0
+q_scale,1,terminal_entropy,0.15744551227682102,0.9740374386735395
+q_scale,1,weighted_uncertainty,0.2916275075452547,0.0370870818025439
