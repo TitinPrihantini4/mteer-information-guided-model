@@ -1,0 +1,210 @@
+{
+  "seed": 20260903,
+  "reference": {
+    "n_views": 3,
+    "view_sequence": [
+      "3D MPR",
+      "3D color VCA",
+      "CW Doppler"
+    ],
+    "terminal_entropy": 0.15592672757335801,
+    "weighted_uncertainty": 0.29151939151005507,
+    "terminal_sd": {
+      "Coaptation gap": 0.5200321539846116,
+      "Coaptation length": 0.45882504066894475,
+      "Residual 3D-VCA": 0.048934645178549764,
+      "Transmitral gradient": 0.3842650654095835
+    },
+    "posterior_mean": {
+      "Coaptation gap": 6.016944833163272,
+      "Coaptation length": 3.4303747413057932,
+      "Residual 3D-VCA": 0.28487446919718257,
+      "Transmitral gradient": 3.4680195702585976
+    },
+    "total_information_gain": 5.431576258872782
+  },
+  "policy_summary": [
+    {
+      "policy": "entropy",
+      "n": 600,
+      "median_views": 3.0,
+      "mean_views": 3.0,
+      "terminal_entropy": 0.12546686146137986,
+      "weighted_uncertainty": 0.28797018489550247,
+      "gap_MAE": 0.3927142156839356,
+      "coaptation_MAE": 0.34685580186512305,
+      "VCA_MAE": 0.035677180751686514,
+      "gradient_MAE": 0.28814902035994205,
+      "completion_rate": 1.0
+    },
+    {
+      "policy": "fixed",
+      "n": 600,
+      "median_views": 6.0,
+      "mean_views": 6.0,
+      "terminal_entropy": -0.2711623925344968,
+      "weighted_uncertainty": 0.26488894354750137,
+      "gap_MAE": 0.3094225320625234,
+      "coaptation_MAE": 0.2543886907213033,
+      "VCA_MAE": 0.03777655538831789,
+      "gradient_MAE": 0.2996049449689329,
+      "completion_rate": 1.0
+    },
+    {
+      "policy": "full",
+      "n": 600,
+      "median_views": 3.0,
+      "mean_views": 3.0,
+      "terminal_entropy": 0.15592672757335801,
+      "weighted_uncertainty": 0.29151939151005507,
+      "gap_MAE": 0.39588251614708475,
+      "coaptation_MAE": 0.33202935970069075,
+      "VCA_MAE": 0.03834295383417769,
+      "gradient_MAE": 0.3211572078592544,
+      "completion_rate": 1.0
+    },
+    {
+      "policy": "no_phase",
+      "n": 600,
+      "median_views": 3.0,
+      "mean_views": 3.0,
+      "terminal_entropy": 0.14739678407362167,
+      "weighted_uncertainty": 0.29282882563614115,
+      "gap_MAE": 0.3819076465388883,
+      "coaptation_MAE": 0.3286542184203374,
+      "VCA_MAE": 0.03690682207185346,
+      "gradient_MAE": 0.2916813865874125,
+      "completion_rate": 1.0
+    },
+    {
+      "policy": "variance",
+      "n": 600,
+      "median_views": 8.0,
+      "mean_views": 8.0,
+      "terminal_entropy": 0.33143506234260656,
+      "weighted_uncertainty": 0.46104506634870696,
+      "gap_MAE": 0.2852138521349631,
+      "coaptation_MAE": 0.24377706838988986,
+      "VCA_MAE": 0.11468737704267155,
+      "gradient_MAE": 0.13419343764767758,
+      "completion_rate": 0.0
+    }
+  ],
+  "model_comparison": [
+    {
+      "model": "Full phase-aware",
+      "k": 9,
+      "log_likelihood": -348.51915917641116,
+      "AIC": 715.0383183528223,
+      "BIC": 760.8490098748072,
+      "internal_action_accuracy": 0.91
+    },
+    {
+      "model": "Entropy only",
+      "k": 2,
+      "log_likelihood": -2144.706530877584,
+      "AIC": 4293.413061755168,
+      "BIC": 4303.59321542672,
+      "internal_action_accuracy": 0.7366666666666667
+    },
+    {
+      "model": "Geometry weighted",
+      "k": 3,
+      "log_likelihood": -2287.313592730449,
+      "AIC": 4580.627185460898,
+      "BIC": 4595.897415968226,
+      "internal_action_accuracy": 0.7358333333333333
+    },
+    {
+      "model": "Clinical weights no phase",
+      "k": 5,
+      "log_likelihood": -4863.232687947479,
+      "AIC": 9736.465375894957,
+      "BIC": 9761.915760073838,
+      "internal_action_accuracy": 0.20083333333333334
+    },
+    {
+      "model": "Cost only",
+      "k": 1,
+      "log_likelihood": -5374.656248376549,
+      "AIC": 10751.312496753098,
+      "BIC": 10756.402573588875,
+      "internal_action_accuracy": 0.11333333333333333
+    }
+  ],
+  "top_prcc_terminal_entropy": [
+    {
+      "parameter": "target_coaptation",
+      "output": "terminal_entropy",
+      "PRCC": 0.5611783021526825,
+      "p_value": 7.971617051828296e-43
+    },
+    {
+      "parameter": "target_gap",
+      "output": "terminal_entropy",
+      "PRCC": 0.2870554884085983,
+      "p_value": 6.117184975701977e-11
+    },
+    {
+      "parameter": "target_vca",
+      "output": "terminal_entropy",
+      "PRCC": 0.2502140525897506,
+      "p_value": 1.4162436509107305e-08
+    },
+    {
+      "parameter": "w_coaptation",
+      "output": "terminal_entropy",
+      "PRCC": -0.08326989537022231,
+      "p_value": 0.0628086764285014
+    },
+    {
+      "parameter": "cost_weight",
+      "output": "terminal_entropy",
+      "PRCC": -0.07373674551017877,
+      "p_value": 0.09957458290538496
+    },
+    {
+      "parameter": "q_scale",
+      "output": "terminal_entropy",
+      "PRCC": -0.0450934184592133,
+      "p_value": 0.31426756002783685
+    }
+  ],
+  "covariance_stability": [
+    {
+      "view": "Intercommissural",
+      "spectral_radius": 1.0000000755209228,
+      "max_real_eigenvalue": 1.0000000755209228
+    },
+    {
+      "view": "LVOT long-axis",
+      "spectral_radius": 1.0000001567285492,
+      "max_real_eigenvalue": 1.0000001567285492
+    },
+    {
+      "view": "Biplane X-plane",
+      "spectral_radius": 1.0000000010279564,
+      "max_real_eigenvalue": 1.0000000010279564
+    },
+    {
+      "view": "3D en-face",
+      "spectral_radius": 1.0000000864530811,
+      "max_real_eigenvalue": 1.0000000864530811
+    },
+    {
+      "view": "3D MPR",
+      "spectral_radius": 1.0000000010279564,
+      "max_real_eigenvalue": 1.0000000010279564
+    },
+    {
+      "view": "3D color VCA",
+      "spectral_radius": 1.0000069578341602,
+      "max_real_eigenvalue": 1.0000069578341602
+    },
+    {
+      "view": "CW Doppler",
+      "spectral_radius": 1.0000002312976468,
+      "max_real_eigenvalue": 1.0000002312976468
+    }
+  ]
+}
