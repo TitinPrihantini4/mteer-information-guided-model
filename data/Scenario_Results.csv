@@ -1,0 +1,9 @@
+scenario,n_views,terminal_entropy,weighted_uncertainty,last_view,last_phase
+Reference,3,0.15592672757335801,0.29151939151005507,CW Doppler,Result assessment
+High image noise,3,0.2724170209156185,0.30001337975578696,CW Doppler,Result assessment
+Low image noise,3,0.08577392160989383,0.286600144488843,CW Doppler,Result assessment
+High acquisition penalty,3,0.12546686146137986,0.28797018489550247,3D color VCA,Result assessment
+Low acquisition penalty,3,0.15592672757335801,0.29151939151005507,CW Doppler,Result assessment
+Residual-MR priority,3,0.15592672757335801,0.30874138588320194,CW Doppler,Result assessment
+Geometry priority,3,0.12546686146137986,0.2722152382269609,3D color VCA,Result assessment
+Hemodynamic priority,3,0.12546686146137986,0.2814090053833348,3D color VCA,Result assessment
