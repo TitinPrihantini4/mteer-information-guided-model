@@ -350,7 +350,7 @@ summary={
  'top_prcc_terminal_entropy':pd.DataFrame(pr).query("output=='terminal_entropy'").assign(absPRCC=lambda d:d.PRCC.abs()).sort_values('absPRCC',ascending=False).head(6).drop(columns='absPRCC').to_dict(orient='records'),
  'covariance_stability':pd.read_csv(DATA/'Covariance_Map_Stability.csv').to_dict(orient='records')
 }
-json.dump(summary,open(OUT/'Analysis_Summary.json','w'),indent=2)
+json.dump(summary,open(DATA/'Analysis_Summary.json','w'),indent=2)
 
 print(json.dumps(summary,indent=2))
 
