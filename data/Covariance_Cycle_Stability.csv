@@ -1,0 +1,4 @@
+cycle,views,iterations,trace_cov,entropy,spectral_radius
+Geometry cycle,3D MPR -> Biplane X-plane,5000,104.63449950630194,5.4850460256835305,1.000000000139778
+Outcome cycle,3D color VCA -> CW Doppler,5000,216.76790186656964,5.294465177212132,1.0
+Full complementary cycle,3D MPR -> 3D color VCA -> CW Doppler,45,0.23673537751712817,-1.615828165757307,0.5706891005008911
