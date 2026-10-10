@@ -1,0 +1,30 @@
+name,value,unit,status,role,source,url
+EVEREST favorable coaptation length,2.0,mm,literature-derived,Minimum historical coaptation-length anchor for graspability,MitraClip patient selection / EVEREST criteria,https://pmc.ncbi.nlm.nih.gov/articles/PMC6288214/
+EVEREST unfavorable coaptation depth,11.0,mm,literature-derived,Historical tethering-depth complexity anchor,MitraClip patient selection / EVEREST criteria,https://pmc.ncbi.nlm.nih.gov/articles/PMC6288214/
+EVEREST flail gap boundary,10.0,mm,literature-derived,Historical degenerative-MR anatomical complexity anchor,MitraClip patient selection / EVEREST criteria,https://pmc.ncbi.nlm.nih.gov/articles/PMC6288214/
+EVEREST flail width boundary,15.0,mm,literature-derived,Historical degenerative-MR anatomical complexity anchor,MitraClip patient selection / EVEREST criteria,https://pmc.ncbi.nlm.nih.gov/articles/PMC6288214/
+Mobile/posterior leaflet length favorable anchor,10.0,mm,literature-derived,Leaflet tissue/graspability anchor,TEER echocardiographic eligibility reviews,https://pmc.ncbi.nlm.nih.gov/articles/PMC7190777/
+Mitral valve area historical anchor,4.0,cm^2,literature-derived,Historical stenosis-risk anchor,EVEREST/TEER selection literature,https://pmc.ncbi.nlm.nih.gov/articles/PMC9146624/
+Transmitral mean-gradient reference boundary,5.0,mmHg,literature-derived,Common post-TEER hemodynamic stratification anchor,CLASP IID / EXPANDed / registry analyses,https://pubmed.ncbi.nlm.nih.gov/42233921/
+Residual 3D-VCA trace/mild boundary,0.1,cm^2,literature-derived,Intraprocedural residual-MR quantitative anchor,MITRA-PRO registry,https://pubmed.ncbi.nlm.nih.gov/39652118/
+Residual 3D-VCA relevant-MR boundary,0.3,cm^2,literature-derived,Intraprocedural residual-MR quantitative anchor,MITRA-PRO registry,https://pubmed.ncbi.nlm.nih.gov/39652118/
+Coaptation-gap prevalence in FMR TEER cohort,10.0,%,literature-derived,"Prevalence/context anchor, not a model probability","Coaptation gap study, n=2140",https://pubmed.ncbi.nlm.nih.gov/40921461/
+AFMR 3D-TEE procedural failure residual MR count,31.0,of 130,literature-derived,Outcome-context anchor,Quantitative 3D TEE AFMR study,https://pubmed.ncbi.nlm.nih.gov/42336064/
+AFMR 3D-TEE gradient >=5 count,35.0,of 130,literature-derived,Outcome-context anchor,Quantitative 3D TEE AFMR study,https://pubmed.ncbi.nlm.nih.gov/42336064/
+TLA/MAA AUC for single-device success,0.79,AUC,literature-derived,3D geometric-information context anchor,Quantitative 3D TEE AFMR study,https://pubmed.ncbi.nlm.nih.gov/42336064/
+CLASP IID optimal hemodynamic result,72.5,%,literature-derived,Residual MR/gradient trade-off context anchor,CLASP IID 1-year analysis,https://pubmed.ncbi.nlm.nih.gov/42233921/
+OCEAN-Mitral residual MR <=2+ at 1 year,94.1,%,literature-derived,Asian registry durability context anchor,OCEAN-Mitral registry,https://pubmed.ncbi.nlm.nih.gov/37815039/
+MITRA-PRO relevant residual VCA prevalence,16.8,%,literature-derived,Residual-MR context anchor,MITRA-PRO registry,https://pubmed.ncbi.nlm.nih.gov/39652118/
+Prior mean Coaptation gap,6.0,mm,provisional structural assumption,"Reference synthetic-state center, not cohort mean",Chosen for literature-consistent proof-of-concept stress testing,
+Prior mean Coaptation length,3.6,mm,provisional structural assumption,"Reference synthetic-state center, not cohort mean",Chosen for literature-consistent proof-of-concept stress testing,
+Prior mean Residual 3D-VCA,0.22,cm^2,provisional structural assumption,"Reference synthetic-state center, not cohort mean",Chosen for literature-consistent proof-of-concept stress testing,
+Prior mean Transmitral gradient,3.8,mmHg,provisional structural assumption,"Reference synthetic-state center, not cohort mean",Chosen for literature-consistent proof-of-concept stress testing,
+Prior SD Coaptation gap,2.6,mm,provisional structural assumption,Initial epistemic uncertainty scale,Not estimated from patients,
+Prior SD Coaptation length,1.4,mm,provisional structural assumption,Initial epistemic uncertainty scale,Not estimated from patients,
+Prior SD Residual 3D-VCA,0.14,cm^2,provisional structural assumption,Initial epistemic uncertainty scale,Not estimated from patients,
+Prior SD Transmitral gradient,1.5,mmHg,provisional structural assumption,Initial epistemic uncertainty scale,Not estimated from patients,
+Stopping SD Coaptation gap,0.65,mm,provisional decision guardrail,Proof-of-concept uncertainty tolerance,Not a clinical cutoff,
+Stopping SD Coaptation length,0.5,mm,provisional decision guardrail,Proof-of-concept uncertainty tolerance,Not a clinical cutoff,
+Stopping SD Residual 3D-VCA,0.055,cm^2,provisional decision guardrail,Proof-of-concept uncertainty tolerance,Not a clinical cutoff,
+Stopping SD Transmitral gradient,0.55,mmHg,provisional decision guardrail,Proof-of-concept uncertainty tolerance,Not a clinical cutoff,
+Acquisition cost weight,0.18,dimensionless,provisional structural assumption,Information-versus-acquisition penalty,Financial-engineering-inspired utility term,
