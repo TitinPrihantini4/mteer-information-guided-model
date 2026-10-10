@@ -204,7 +204,7 @@ prov=[
 ('Analysis_Summary.json','Machine-readable summary of principal numerical results used in the manuscript.')]
 for fn,desc in prov: para(D,f'{fn} — {desc}',space=2)
 
-out=BASE/'ECHO360_MTEER_Information_Guided_Full_Article.docx'; D.save(out)
+out=BASE/'MTEER_Information_Guided_Full_Article.docx'; D.save(out)
 
 # Equation list companion
 E=setup(Document()); E.add_heading('Model Equations List',0); para(E,TITLE); para(E,'Equations are listed one per row. Literature-derived values are clinical anchors; observation-noise, utility, phase, and stopping parameters remain provisional until calibration.',italic=True)
@@ -215,7 +215,7 @@ with open(BASE/'Model_Equations_List.txt','w') as f:
 
 # Provenance companion
 P=setup(Document()); P.add_heading('Parameter Sources and CSV Provenance',0); para(P,TITLE); para(P,'Evidence status: literature defines clinical anchors and imaging roles; it does not provide every observation-noise covariance, utility weight, phase coefficient, or stopping tolerance. Those values are provisional until longitudinal intraprocedural calibration.')
-src=pd.read_csv(BASE/'Literature_Parameter_Sources.csv')
+src=pd.read_csv(DATA/'Literature_Parameter_Sources.csv')
 P.add_heading('Literature Sources',1)
 for i,row in src.iterrows():
     p=P.add_paragraph(); p.add_run(f'{i+1}. {row.reference} ').bold=True; p.add_run(row.modeling_role+' '); add_hyperlink(p,'Link',row.url)
