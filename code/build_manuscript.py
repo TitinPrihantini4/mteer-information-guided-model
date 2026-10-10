@@ -8,7 +8,8 @@ from docx.enum.section import WD_SECTION
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
-BASE=Path('/mnt/data/echo360_mteer_information_guided_package'); FIG=BASE/'figures'
+BASE = Path(__file__).resolve().parents[1]
+FIG = BASE / 'figures'
 S=json.load(open(BASE/'Analysis_Summary.json')); R=S['reference']
 
 TITLE='Information-Guided View Selection Model for Intraprocedural M-TEER Using Coaptation Geometry and Residual Mitral Regurgitation Uncertainty States'
