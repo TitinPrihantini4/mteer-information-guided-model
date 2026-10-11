@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, code, data, or computational framework in your research, please cite it as below."
+
+authors:
+  - family-names: "Prihantini"
+
+title: "Information-Guided View Selection Model for Intraprocedural M-TEER Using Coaptation Geometry and Residual Mitral Regurgitation Uncertainty"
+
+version: "1.0.0"
+
+date-released: "2026-10-11"
+
+url: "https://github.com/TitinPrihantini4/mteer-information-guided-model"
+
+repository-code: "https://github.com/TitinPrihantini4/mteer-information-guided-model"
+
+license: "MIT"
+
+preferred-citation:
+  type: software
+  authors:
+    - family-names: "Prihantini"
+  title: "Information-Guided View Selection Model for Intraprocedural M-TEER Using Coaptation Geometry and Residual Mitral Regurgitation Uncertainty"
+  version: "1.0.0"
+  year: 2026
+  url: "https://github.com/TitinPrihantini4/mteer-information-guided-model"
