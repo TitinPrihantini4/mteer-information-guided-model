@@ -97,3 +97,9 @@ This repository is distributed under the MIT License. See `LICENSE` for details.
 ## Disclaimer
 
 This repository is intended for research and methodological development. The framework is a computational proof-of-concept and has not been prospectively validated for clinical decision-making. It should not be used as a substitute for clinical judgment, institutional protocols, or validated medical guidance.
+
+## Citation
+
+If you use this repository, computational framework, code, data, or results in your research, please cite:
+
+Prihantini. (2026). Information-Guided View Selection Model for Intraprocedural M-TEER Using Coaptation Geometry and Residual Mitral Regurgitation Uncertainty (Version 1.0.0) [Computer software]. GitHub.
